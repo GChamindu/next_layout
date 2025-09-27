@@ -4,10 +4,8 @@ import { cookies } from 'next/headers';
 // Helper to get token from cookies (works on client/server)
 function getToken() {
     if (typeof window === 'undefined') {
-        // Server-side: Use next/headers
         return cookies().get('auth_token')?.value || null;
     } else {
-        // Client-side: Use js-cookie
         return Cookies.get('auth_token') || null;
     }
 }
@@ -16,7 +14,7 @@ function getToken() {
 async function getCsrfToken() {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`, {
         method: 'GET',
-        credentials: 'include', // Include cookies for session
+        credentials: 'include',
         cache: 'no-store',
     });
     if (!response.ok) throw new Error('Failed to fetch CSRF token');
@@ -24,7 +22,6 @@ async function getCsrfToken() {
 }
 
 export async function login(email: string, password: string) {
-    // Fetch CSRF token first
     await getCsrfToken();
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
@@ -34,7 +31,7 @@ export async function login(email: string, password: string) {
             'Accept': 'application/json',
         },
         body: JSON.stringify({ email, password }),
-        credentials: 'include', // Send cookies with request
+        credentials: 'include',
         cache: 'no-store',
     });
 
@@ -44,12 +41,10 @@ export async function login(email: string, password: string) {
     }
 
     const data = await res.json();
-    // Laravel sets auth_token in HTTP-only cookie via Set-Cookie header
     return data.user;
 }
 
 export async function register(name: string, email: string, password: string) {
-    // Fetch CSRF token first
     await getCsrfToken();
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/register`, {
@@ -69,7 +64,6 @@ export async function register(name: string, email: string, password: string) {
     }
 
     const data = await res.json();
-    // Laravel sets auth_token in HTTP-only cookie
     return data.user;
 }
 
@@ -86,19 +80,24 @@ export async function getUser() {
     });
 
     if (!res.ok) {
-        const errorData = await res.json().catch(() => ({}));
-        return { error: errorData.message || 'Failed to fetch user' };
+        return null;
     }
 
     return res.json();
 }
 
-export function logout() {
-    Cookies.remove('auth_token');
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/logout`, {
+export async function logout() {
+    const token = getToken();
+    if (!token) return;
+
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/logout`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
         credentials: 'include',
         cache: 'no-store',
     });
+    Cookies.remove('auth_token');
 }
