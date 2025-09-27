@@ -1,4 +1,4 @@
 npx shadcn@latest add navigation-menu button card
 
-npx shadcn@latest add button input avatar dropdown-menu sheet  # Sheet optional for mobile menu
+npx shadcn@latest add button input avatar dropdown-menu sheet
 
