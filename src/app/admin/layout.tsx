@@ -1,5 +1,6 @@
-import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from '@/components/ui/navigation-menu';
 import Link from 'next/link';
+import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from '@/components/ui/navigation-menu';
+import { logout } from '@/lib/auth';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
     return (
@@ -7,13 +8,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <NavigationMenu>
                 <NavigationMenuList>
                     <NavigationMenuItem>
-                        <Link href="/admin/dashboard"><NavigationMenuLink>Dashboard</NavigationMenuLink></Link>
+                        <Link href="/"><NavigationMenuLink>Dashboard</NavigationMenuLink></Link>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
+                        <Link href="/admin/posts"><NavigationMenuLink>Posts</NavigationMenuLink></Link>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
                         <Link href="/admin/settings"><NavigationMenuLink>Settings</NavigationMenuLink></Link>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                        <Link href="/admin/posts"><NavigationMenuLink>Posts</NavigationMenuLink></Link>
+                        {/* <NavigationMenuLink onClick={async () => { await logout(); window.location.href = '/'; }}>Logout</NavigationMenuLink> */}
                     </NavigationMenuItem>
                 </NavigationMenuList>
             </NavigationMenu>
