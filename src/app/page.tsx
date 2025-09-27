@@ -3,6 +3,7 @@ import { getUser } from '@/lib/auth';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
+import Hero from '@/components/Hero';
 
 export default async function Home() {
   const user = await getUser(); // Uncomment to enable
@@ -15,9 +16,12 @@ export default async function Home() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center p-8">
+
+        <Hero />
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle>Home Page</CardTitle>
+        
         </CardHeader>
         <CardContent className="space-y-4">
           <p>Welcome! Log in or register to access your dashboard.</p>
