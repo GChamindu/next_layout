@@ -1,6 +1,7 @@
-import { DataTable } from '@/components/ui/data-table';
 import { ColumnDef } from '@tanstack/react-table';
 import { Badge } from '@/components/ui/badge';
+
+
 
 interface RecentItem {
   id: string;
@@ -20,7 +21,8 @@ export function RecentTable({ data, columns, title }: RecentTableProps) {
   return (
     <div className="space-y-4">
       <h2 className="text-2xl font-bold tracking-tight">{title}</h2>
-      <DataTable columns={columns} data={data} />
+      
+      {/* <DataTable columns={columns} data={data} /> */}
     </div>
   );
 }

@@ -12,4 +12,8 @@ npx clear-npx-cache
 
 npm install -g @shadcn/ui@latest
 
-npx shadcn@latest add data-table badge
+
+npx shadcn@latest add badge
+
+
+npx shadcn@latest mcp init --client vscode
