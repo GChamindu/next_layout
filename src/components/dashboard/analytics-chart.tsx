@@ -23,7 +23,7 @@ export function AnalyticsChart({ data, config, title }: AnalyticsChartProps) {
           <CartesianGrid vertical={false} strokeDasharray="3 3" />
           <XAxis dataKey="name" tickMargin={10} />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Line type="monotone" dataKey="value" stroke="var(--color-analytics)" strokeWidth={2} />
+<Line type="monotone" dataKey="value" stroke="#8884d8" strokeWidth={2} />
         </LineChart>
       </ChartContainer>
     </div>
