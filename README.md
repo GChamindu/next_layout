@@ -17,3 +17,7 @@ npx shadcn@latest add badge
 
 
 npx shadcn@latest mcp init --client vscode
+
+npm install @tanstack/react-table lucide-react @radix-ui/react-slot
+
+npx shadcn@latest add sidebar navigation-menu sheet button
