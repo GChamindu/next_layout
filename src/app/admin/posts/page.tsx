@@ -11,7 +11,7 @@ export default function AdminPosts() {
   return (
     <div>
       <h1 className="text-3xl font-bold mb-4">Posts</h1>
-      {/* <RecentTable data={recentPosts} columns={recentColumns} title="Recent Posts" /> */}
+      <RecentTable data={recentPosts} columns={recentColumns} title="Recent Posts" />
     </div>
   );
 }
